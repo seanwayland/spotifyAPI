@@ -1,6 +1,6 @@
 # Dependencies and Setup
 import numpy as np
-import requests
+
 import json
 import time
 
@@ -10,6 +10,8 @@ from pandas.io.json import json_normalize
 from pprint import pprint
 
 # function to flatten json object
+
+'''
 def flatten_json(y):
     out = {}
     def flatten(x, name=''):
@@ -25,6 +27,8 @@ def flatten_json(y):
             out[name[:-1]] = x
     flatten(y)
     return out
+    
+'''
 
 # get top 100 playlist
 url3 = "https://api.spotify.com/v1/playlists/4hOKQuZbraPDIfaGbM3lKI"
@@ -38,6 +42,9 @@ req = requests.get(url3, headers=headers)
 jreq = req.json()
 print(jreq)
 
+#print(json.dumps(jreq, indent=4, sort_keys=True))
+
+'''
 f = flatten_json(jreq)
 
 data = pd.DataFrame(json_normalize(f))
@@ -46,11 +53,15 @@ data = data.transpose()
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
-with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-    print(data)
+#with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+#    print(data)
 # First element is general information, second is countries themselves
 #val = countries_response[1][26]['name']
 #print(val)
+'''
+val = jreq['tracks']['items'][93]['track']['id']
+print(val)
+
 
 
 
